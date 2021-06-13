@@ -7,6 +7,10 @@
 node_modules/
 dist/
 
+public/uploads/
+.idea
+.vscode
+
 # Compiled Java class files
 *.class
 

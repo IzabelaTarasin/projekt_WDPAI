@@ -40,3 +40,14 @@ section > div {
 .checked {
     color: orange;
 }
+
+section.place-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.place-form > form {
+    display: flex;
+    flex-direction: column;
+}
