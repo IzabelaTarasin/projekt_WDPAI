@@ -3,6 +3,8 @@
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/places.css">
     <link rel="stylesheet" type="text/css" href="public/css/sliders.css">
+    <link rel="stylesheet" type="text/css" href="public/css/calendars.css">
+    <link rel="stylesheet" type="text/css" href="public/css/searchTeriitorium.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/23b90dae98.js" crossorigin="anonymous"></script>
     <title>SEARCH PAGE</title>
@@ -15,22 +17,29 @@
             <ul>
                 <li>
                     <i class="fas fa-tags"></i>
-                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+<!--                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
                 </li>
                 <li>
                     <i class="fas fa-search"></i>
-                    <a href="#" class="button">search</a>
                 </li>
                 <li>
                     <i class="fas fa-calendar-alt"></i>
+                    <label for="startdate">Start day</label>
+                    <input class="calendar" type="date" name="startdate" id="startdate">
                 </li>
                 <li>
                     <i class="fas fa-calendar-alt"></i>
-                    <a href="#" class="button">date to</a>
+                    <label class="calendarlabel" for="enddate">End day</label>
+                    <input class="calendar" type="date" name="enddate" id="enddate">
                 </li>
                 <li>
                     <i class="fas fa-user"></i>
-                    <a href="#" class="button">persons</a>
+                    <select name="persons" id="persons">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
                 </li>
                 <li>
                     <i class="fas fa-utensils"></i>
