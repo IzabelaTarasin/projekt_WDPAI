@@ -53,7 +53,7 @@ button {
     opacity: 1;
 }
 
-input {
+input, textarea{
     background-color: transparent;
     border: none;
     border-bottom: 1px solid gray;

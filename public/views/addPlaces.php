@@ -86,66 +86,21 @@
                     add place
                 </div>
             </header>
-            <section class="places">
-                <div id="place-1">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-2">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-3">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-4">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-                </div>
+            <section class="place-form">
+                <h1>UPLOAD FILE</h1>
+                <form action="add_place" method="POST" ENCTYPE="multipart/form-data">
+                    <?php
+                    if(isset($messages)){
+                        foreach($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                    <input name="title" type="text" placeholder="title">
+                    <textarea name="description" rows="5" placeholder="description"></textarea>
+                    <input type="file" name="file">
+                    <button type="submit">Send</button>
+                </form>
             </section>
         </main>
     </div>
