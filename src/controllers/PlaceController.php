@@ -2,6 +2,7 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../models/Place.php';
+require_once __DIR__.'/../repository/PlaceRepository.php';
 
 
 class PlaceController extends AppController
@@ -11,6 +12,19 @@ class PlaceController extends AppController
     const UPLOAD_DIRECTORY = '/../public/uploads/';
 
     private $messages = [];
+    private $placeRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->placeRepository = new PlaceRepository();
+    }
+
+    public function places()
+    {
+        $places = $this->placeRepository->getPlaces();
+        $this->render('places', ['places' => $places]);
+    }
 
     public function addPlace()
     {
@@ -24,7 +38,7 @@ class PlaceController extends AppController
 
             return $this->render('places', ['messages' => $this->messages, 'place' => $place]);
         }
-        $this->render('add_place');
+        $this->render('add-place');
     }
 
     private function validate(array $file)
