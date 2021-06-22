@@ -5,6 +5,7 @@ class User {
     private $password;
     private $name;
     private $surname;
+    //TODO: account type
 
     public function __construct(
         string $email,
@@ -26,5 +27,15 @@ class User {
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
     }
 }
