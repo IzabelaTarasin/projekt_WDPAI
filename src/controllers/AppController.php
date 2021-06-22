@@ -1,22 +1,4 @@
 <?php
-//
-//class AppController {
-//
-//    protected function render(string $template = null, array $variables = [])
-//    {
-//        $templatePath = 'public/views/'.$template.'.php';
-//        $output = 'File not found';
-//
-//        if(file_exists($templatePath)){
-//            extract($variables);
-//
-//            ob_start();
-//            include $templatePath;
-//            $output = ob_get_clean();
-//        }
-//        print $output;
-//    }
-//}
 
 
 class AppController
@@ -51,5 +33,21 @@ class AppController
             $output = ob_get_clean();
         }
         print $output;
+    }
+
+    protected function checkIsLoggedIn() :void
+    {
+        if(!isset($_SESSION['user']))
+        {
+            header("Location: http://$_SERVER[HTTP_HOST]");
+        }
+    }
+
+    protected function checkIsLoggedInAndBusiness() :void
+    {
+        if(!(isset($_SESSION['user']) && $_SESSION['user']->getAccountType()->getName() == 'business' ))
+        {
+            header("Location: http://$_SERVER[HTTP_HOST]");
+        }
     }
 }

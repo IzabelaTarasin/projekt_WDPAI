@@ -75,15 +75,24 @@
             </ul>
         </nav>
         <main>
+
             <header>
                 <div class="search-bar">
                     <form>
                         <input placeholder="search place">
                     </form>
                 </div>
-                <div class="add-place">
-                    <i class="fas fa-plus"></i>
-                    add place
+                <div>
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user']->getAccountType()->getName() == 'business')
+                    {
+                        ?>
+                        <div class="add-place">
+                            <i class="fas fa-plus"></i>
+                            add place
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
             </header>
             <section class="places">

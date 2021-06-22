@@ -11,79 +11,11 @@
 </head>
 
 <body>
-    <div class="base-container">
-        <nav>
-            <img src="public/img/CAMP APP.svg">
-            <ul>
-                <li>
-                    <i class="fas fa-tags"></i>
-<!--                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
-                </li>
-                <li>
-                    <i class="fas fa-search"></i>
-                </li>
-                <li>
-                    <i class="fas fa-calendar-alt"></i>
-                    <label for="startdate">Start day</label>
-                    <input class="calendar" type="date" name="startdate" id="startdate">
-                </li>
-                <li>
-                    <i class="fas fa-calendar-alt"></i>
-                    <label class="calendarlabel" for="enddate">End day</label>
-                    <input class="calendar" type="date" name="enddate" id="enddate">
-                </li>
-                <li>
-                    <i class="fas fa-user"></i>
-                    <select name="persons" id="persons">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </li>
-                <li>
-                    <i class="fas fa-utensils"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <i class="fas fa-dog"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <i class="fas fa-bath"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <i class="fas fa-child"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <a href="#" class="button">search</a>
-                </li>
-            </ul>
-        </nav>
+    <div class="container">
         <main>
             <header>
                 <div class="search-bar">
-                    <form>
-                        <input placeholder="search place">
-                    </form>
-                </div>
-                <div class="add-place">
-                    <i class="fas fa-plus"></i>
-                    add place
+                    <button onClick="document.location.href='/places';">Home</button>
                 </div>
             </header>
             <section class="place-form">
