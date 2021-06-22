@@ -24,7 +24,7 @@ body {
     width: 50%;
 }
 
-form.login {
+form.login, form.register {
     display: flex;
     flex-direction: column;
     justify-content: center;
