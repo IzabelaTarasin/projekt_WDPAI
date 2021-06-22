@@ -3,15 +3,18 @@
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
-
+require_once __DIR__.'/../repository/AccountTypeRepository.php';
 
 class SecurityController extends AppController
 {
-    private $userRepository;
+    private UserRepository $userRepository;
+    private AccountTypeRepository $accountTypeRepository;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->accountTypeRepository = new AccountTypeRepository();
         $this->userRepository = new UserRepository();
     }
 
@@ -53,17 +56,36 @@ class SecurityController extends AppController
         $confirmedPassword = $_POST['confirmedPassword'];
         $name = $_POST['name'];
         $surname = $_POST['surname'];
-        //TODO: account type
+        $accountTypeValue = $_POST['accountType'];
+
+        //TODO: empty field validation
 
         if ($password !== $confirmedPassword) {
-            return $this->render('register', ['messages' => ['Please provide proper password']]);
+            return $this->render('register', ['messages' => ['Passwords do not match']]);
         }
 
-        //TODO try to use better hash function
-        $user = new User($email, md5($password), $name, $surname);
+        $existingUser = $this->userRepository->getUser($email);
 
+        if($existingUser != null)
+        {
+            return $this->render('register', ['messages' => ['You already have an account']]);
+        }
+
+        $accountType = $this->getAccountType($accountTypeValue);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $user = new User($email, $hash, $name, $surname, $accountType);
         $this->userRepository->addUser($user);
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
+    }
+
+    private function getAccountType(string $value) :AccountType
+    {
+        if($value == 'business')
+        {
+            return $this->accountTypeRepository->getBusinessType();
+        }
+
+        return $this->accountTypeRepository->getStandardType();
     }
 }

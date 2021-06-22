@@ -2,6 +2,8 @@
 
 require_once 'Repository.php';
 require_once __DIR__.'/../models/User.php';
+require_once __DIR__.'/../repository/AccountTypeRepository.php';
+
 
 class UserRepository extends Repository
 {
@@ -20,36 +22,32 @@ class UserRepository extends Repository
         if($user == false) {
             return null;
         }
+
+        $accountTypeRepository = new AccountTypeRepository();
+        $accountType = $accountTypeRepository->getById($user['account_type_id']);
+
         return new User(
             $user['email'],
             $user['password'],
             $user['name'],
             $user['surname'],
-        ); //TODO: account type
+            $accountType
+        );
     }
 
     public function addUser(User $user)
     {
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (name, surname)
-            VALUES (?, ?)
+            INSERT INTO users (name, surname, email, password, account_type_id) 
+            VALUES (?, ?, ?, ?, ?)
         ');
 
         $stmt->execute([
             $user->getName(),
             $user->getSurname(),
-        ]);
-
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (name, surname, email, password) 
-            VALUES (?, ?, ?, ?)
-        '); //TODO: account type
-
-        $stmt->execute([
-            $user->getName(),
-            $user->getSurname(),
             $user->getEmail(),
-            $user->getPassword()
+            $user->getPassword(),
+            $user->getAccountType()->getId()
         ]);
     }
 }
