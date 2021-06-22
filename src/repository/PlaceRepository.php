@@ -5,7 +5,6 @@ require_once __DIR__.'/../models/Place.php';
 
 class PlaceRepository extends Repository
 {
-
     public function getPlace(int $id): ?Place
     {
         $stmt = $this->database->connect()->prepare('

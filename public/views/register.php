@@ -27,8 +27,14 @@
             <input name="confirmedPassword" type="password" placeholder="confirm password">
             <input name="name" type="text" placeholder="name">
             <input name="surname" type="text" placeholder="surname">
-
-            <--! TODO: account type -->
+            <div>
+                <input type="radio" id="standard" name="accountType" value="standard" checked>
+                <label for="standard">Standard</label>
+            </div>
+            <div>
+                <input type="radio" id="business" name="accountType" value="business">
+                <label for="business">Business</label>
+            </div>
 
             <button type="submit">REGISTER</button>
         </form>

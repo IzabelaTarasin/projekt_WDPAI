@@ -1,22 +1,26 @@
 <?php
 
+require_once 'AccountType.php';
+
 class User {
     private $email;
     private $password;
     private $name;
     private $surname;
-    //TODO: account type
+    private AccountType $accountType;
 
     public function __construct(
         string $email,
         string $password,
         string $name,
-        string $surname
+        string $surname,
+        AccountType $accountType
     ) {
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
+        $this->accountType = $accountType;
     }
 
     public function getEmail(): string
@@ -37,5 +41,10 @@ class User {
     public function getSurname(): string
     {
         return $this->surname;
+    }
+
+    public function getAccountType(): AccountType
+    {
+        return $this->accountType;
     }
 }
