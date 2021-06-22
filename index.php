@@ -9,5 +9,6 @@ Router::get('', 'DefaultController');
 Router::get('places', 'PlaceController');
 Router::post('login', 'SecurityController');
 Router::post('addPlace','PlaceController');
+Router::post('register', 'SecurityController');
 
 Router::run($path);
