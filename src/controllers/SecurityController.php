@@ -40,7 +40,9 @@ class SecurityController extends AppController
         if(!password_verify($password, $user->getPassword())){
             return $this->render('login', ['messages' => ['Wrong password']]);
         }
-        
+
+        $_SESSION['user'] = $user;
+
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/places");
     }

@@ -28,6 +28,8 @@ class PlaceController extends AppController
 
     public function addPlace()
     {
+        parent::checkIsLoggedInAndBusiness();
+
         if($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
             move_uploaded_file(
                 $_FILES['file']['tmp_name'],
@@ -38,7 +40,7 @@ class PlaceController extends AppController
 
             return $this->render('places', ['messages' => $this->messages, 'place' => $place]);
         }
-        $this->render('add-place');
+        $this->render('addPlaces');
     }
 
     private function validate(array $file)
