@@ -3,18 +3,15 @@
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
-require_once __DIR__.'/../repository/AccountTypeRepository.php';
 
 class SecurityController extends AppController
 {
     private UserRepository $userRepository;
-    private AccountTypeRepository $accountTypeRepository;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->accountTypeRepository = new AccountTypeRepository();
         $this->userRepository = new UserRepository();
     }
 
@@ -58,7 +55,7 @@ class SecurityController extends AppController
         $confirmedPassword = $_POST['confirmedPassword'];
         $name = $_POST['name'];
         $surname = $_POST['surname'];
-        $accountTypeValue = $_POST['accountType'];
+        $accountType = $_POST['accountType'];
 
         //TODO: empty field validation
 
@@ -73,21 +70,10 @@ class SecurityController extends AppController
             return $this->render('register', ['messages' => ['You already have an account']]);
         }
 
-        $accountType = $this->getAccountType($accountTypeValue);
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $user = new User($email, $hash, $name, $surname, $accountType);
         $this->userRepository->addUser($user);
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
-    }
-
-    private function getAccountType(string $value) :AccountType
-    {
-        if($value == 'business')
-        {
-            return $this->accountTypeRepository->getBusinessType();
-        }
-
-        return $this->accountTypeRepository->getStandardType();
     }
 }

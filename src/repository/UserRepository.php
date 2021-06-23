@@ -2,36 +2,32 @@
 
 require_once 'Repository.php';
 require_once __DIR__.'/../models/User.php';
-require_once __DIR__.'/../repository/AccountTypeRepository.php';
-
 
 class UserRepository extends Repository
 {
     public function getUser(string $email): ?User
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT * FROM users
+        SELECT * FROM users u
+        LEFT JOIN account_types acct on acct.id = u.account_type_id
         WHERE email = :email
         ');
 
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user == false) {
+        if($result == false) {
             return null;
         }
 
-        $accountTypeRepository = new AccountTypeRepository();
-        $accountType = $accountTypeRepository->getById($user['account_type_id']);
-
         return new User(
-            $user['email'],
-            $user['password'],
-            $user['name'],
-            $user['surname'],
-            $accountType
+            $result['email'],
+            $result['password'],
+            $result['name'],
+            $result['surname'],
+            $result['type_name']
         );
     }
 
@@ -47,7 +43,24 @@ class UserRepository extends Repository
             $user->getSurname(),
             $user->getEmail(),
             $user->getPassword(),
-            $user->getAccountType()->getId()
+            $this->getAccountTypeId($user->getAccountType())
         ]);
+    }
+
+    private function getAccountTypeId(string $type_name) : ?int
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM account_types WHERE type_name = :type_name LIMIT 1
+        ');
+        $stmt->bindParam(':type_name', $type_name);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result == false) {
+            return null;
+        }
+
+        return $result['id'];
     }
 }

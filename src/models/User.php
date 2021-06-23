@@ -7,14 +7,14 @@ class User {
     private $password;
     private $name;
     private $surname;
-    private AccountType $accountType;
+    private $accountType;
 
     public function __construct(
         string $email,
         string $password,
         string $name,
         string $surname,
-        AccountType $accountType
+        $accountType
     ) {
         $this->email = $email;
         $this->password = $password;
@@ -43,7 +43,7 @@ class User {
         return $this->surname;
     }
 
-    public function getAccountType(): AccountType
+    public function getAccountType(): string
     {
         return $this->accountType;
     }
