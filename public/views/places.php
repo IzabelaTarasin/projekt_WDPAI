@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/searchTeriitorium.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/23b90dae98.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./public/js/searchPlaces.js" defer></script>
     <title>SEARCH PAGE</title>
 </head>
 
@@ -15,13 +16,6 @@
         <nav>
             <img src="public/img/CAMP APP.svg">
             <ul>
-                <li>
-                    <i class="fas fa-tags"></i>
-<!--                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
-                </li>
-                <li>
-                    <i class="fas fa-search"></i>
-                </li>
                 <li>
                     <i class="fas fa-calendar-alt"></i>
                     <label for="startdate">Start day</label>
@@ -33,44 +27,14 @@
                     <input class="calendar" type="date" name="enddate" id="enddate">
                 </li>
                 <li>
-                    <i class="fas fa-user"></i>
-                    <select name="persons" id="persons">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </li>
-                <li>
-                    <i class="fas fa-utensils"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
                     <i class="fas fa-dog"></i>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input id = "animals-allowed-switch" type="checkbox">
                         <span class="slider round"></span>
                     </label>
                 </li>
                 <li>
-                    <i class="fas fa-bath"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <i class="fas fa-child"></i>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </li>
-                <li>
-                    <a href="#" class="button">search</a>
+                    <button id="search-button" class="button">search</button>
                 </li>
             </ul>
         </nav>
@@ -78,84 +42,37 @@
 
             <header>
                 <div class="search-bar">
-                    <form>
-                        <input placeholder="search place">
-                    </form>
+                    <input id="search-bar" placeholder="search place">
                 </div>
                 <div>
-                    <?php if(isset($_SESSION['user']) && $_SESSION['user']->getAccountType()->getName() == 'business')
-                    {
-                        ?>
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user']->getAccountType() == 'business'):?>
                         <div class="add-place">
                             <i class="fas fa-plus"></i>
                             add place
                         </div>
-                        <?php
-                    }
-                    ?>
+                        <?php endif;?>
                 </div>
             </header>
             <section class="places">
-                <div id="place-1">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-2">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-3">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <p>description</p>
-                    </div>
-                </div>
-                <div id="place-4">
-                    <img src="public/uploads/<?= $place->getImage() ?>">
-                    <div>
-                        <h2><?= $place->getTitle() ?></h2>
-                        <p><?= $place->getDescription() ?></p>
-                        <div class="rating-section">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-                </div>
+                <div id="places-container"class="places_container"/>
             </section>
         </main>
     </div>
 </body>
+
+<template id="place-template">
+    <div>
+        <img id="image" width="100" height="100">
+        <div>
+            <h2 id="name"></h2>
+            <p id="description"></p>
+            <div class="rating-section">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+            </div>
+        </div>
+    </div>
+</template>
