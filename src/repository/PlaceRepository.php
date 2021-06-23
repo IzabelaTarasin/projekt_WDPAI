@@ -34,7 +34,7 @@ class PlaceRepository extends Repository
             VALUES (?, ?, ?, ?)
         ');
 
-        //TODO you should get this value from logged user session
+        //TODO you should get this value from logged user session + transaction
         $assignedById = 1;
 
         $stmt->execute([
@@ -48,22 +48,26 @@ class PlaceRepository extends Repository
 
     public function getPlaces(): array
     {
-        $result = [];
-
+        // TODO: left join adress
         $stmt = $this->database->connect()->prepare('
             SELECT * FROM places;
         ');
         $stmt->execute();
-        $places = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-        foreach ($places as $place) {
-            $result[] = new Project(
-                $place['name'],
-                $place['description'],
-                $place['address']
-            );
-        }
+    // TODO: add animal, start date end date
+    public function searchPlaces(string $name, bool $animalsAllowed) : array {
+        $name = '%' . strtolower($name) . '%';
 
-        return $result;
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM places WHERE LOWER(name) LIKE :name AND animals_allowed = :animalsAllowed;
+        ');
+
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':animalsAllowed', $animalsAllowed, PDO::PARAM_BOOL);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

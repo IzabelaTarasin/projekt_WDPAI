@@ -12,7 +12,7 @@ class PlaceController extends AppController
     const UPLOAD_DIRECTORY = '/../public/uploads/';
 
     private $messages = [];
-    private $placeRepository;
+    private PlaceRepository $placeRepository;
 
     public function __construct()
     {
@@ -22,8 +22,33 @@ class PlaceController extends AppController
 
     public function places()
     {
-        $places = $this->placeRepository->getPlaces();
-        $this->render('places', ['places' => $places]);
+        $this->render('places');
+    }
+
+    public function getAllPlaces() {
+        header('Content-type: application/json');
+        http_response_code(200);
+
+        echo json_encode($this->placeRepository->getPlaces());
+    }
+
+    public function searchPlaces()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if($contentType === "application/json")
+        {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            $search = $decoded['search'] ?? '';
+            $animalsAllowed = $decoded['animalsAllowed'] ?? false;
+
+            header('Content-type: application/json');
+            http_response_code(200);
+
+            echo json_encode($this->placeRepository->searchPlaces($search, $animalsAllowed));
+        }
     }
 
     public function addPlace()
