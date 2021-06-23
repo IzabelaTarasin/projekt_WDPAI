@@ -1,20 +1,22 @@
 <?php
 
 class Place {
-    private string $title;
+    private string $name;
     private string $description;
-    private ?string $image;
+    private ?string $imagePath;
+    private bool $animalsAllowed;
 
-    public function __construct($title, $description, $image)
+    public function __construct($name, $description, $animalsAllowed, $imagePath)
     {
-        $this->title = $title;
+        $this->name = $name;
         $this->description = $description;
-        $this->image = $image;
+        $this->imagePath = $imagePath;
+        $this->animalsAllowed = $animalsAllowed;
     }
 
-    public function getTitle(): string
+    public function getName(): string
     {
-        return $this->title;
+        return $this->name;
     }
 
     public function getDescription(): string
@@ -22,8 +24,13 @@ class Place {
         return $this->description;
     }
 
-    public function getImage(): image
+    public function getImagePath(): string
     {
-        return $this->image;
+        return $this->imagePath;
+    }
+
+    public function isAnimalsAllowed(): bool
+    {
+        return $this->animalsAllowed;
     }
 }
