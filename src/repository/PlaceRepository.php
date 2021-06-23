@@ -28,21 +28,19 @@ class PlaceRepository extends Repository
 
     public function addPlace(Place $place): void
     {
-        $date = new DateTime();
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO places (name, description, address, id_assigned_by)
+            INSERT INTO places (name, description, owner_id, animals_allowed)
             VALUES (?, ?, ?, ?)
         ');
 
-        //TODO you should get this value from logged user session + transaction
-        $assignedById = 1;
+        //TODO you should get this value from logged user session + transaction for address
+        $assignedById = 5;
 
         $stmt->execute([
             $place->getName(),
             $place->getDescription(),
-            $place->getAddress(),
-//            $date->format('Y-m-d'),
-            $assignedById
+            $assignedById,
+            $place->isAnimalsAllowed() ? 1 : 0
         ]);
     }
 

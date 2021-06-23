@@ -53,22 +53,46 @@ class PlaceController extends AppController
 
     public function addPlace()
     {
-        parent::checkIsLoggedInAndBusiness();
+        $this->checkIsLoggedInAndBusiness();
 
-        if($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
-            move_uploaded_file(
-                $_FILES['file']['tmp_name'],
-                dirname(__DIR__).self::UPLOAD_DIRECTORY.S_FILES['file']['name']
-            );
+        if($this->isPost()) {
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $animalsAllowed = $_POST['animalsAllowed'] ?? false;
 
-            $place = new Place($_POST['title'], $_POST['description'], $_FILES['file']['name']);
+            if($name == null)
+            {
+                return $this->render('addPlace', ['messages' => ['Name cannot be empty']]);
+            }
 
-            return $this->render('places', ['messages' => $this->messages, 'place' => $place]);
+            if($description == null)
+            {
+                return $this->render('addPlace', ['messages' => ['Description cannot be empty']]);
+            }
+
+            if (is_uploaded_file($_FILES['file']['tmp_name']) && $this->isValid($_FILES['file'])) {
+                $tempFile = $_FILES['file']['tmp_name'];
+                $uniqueFileName = $this->createUniqueFilePath();
+                $dir = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
+
+                move_uploaded_file($tempFile, $dir);
+            }
+
+            $place = new Place($name, $description, $animalsAllowed, null/*, $_FILES['file']['name'] */);
+            $this->placeRepository->addPlace($place);
+
+            header("Location: http://$_SERVER[HTTP_HOST]/places");
         }
-        $this->render('addPlaces');
+        $this->render('addPlace');
     }
 
-    private function validate(array $file)
+    private function createUniqueFilePath() :string {
+        $split = explode(".", $_FILES['file']['name']);
+        $fileExtension = $split[count($split) - 1];
+        return uniqid().".".$fileExtension;
+    }
+
+    private function isValid(array $file)
     {
         if($file['size'] > self::MAX_FILE_SIZE) {
             $this->messages[] = 'File is too large for destination file system.';
@@ -79,5 +103,7 @@ class PlaceController extends AppController
             $this->messages[] = 'File is not supported.';
             return false;
         }
+
+        return true;
     }
 }

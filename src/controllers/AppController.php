@@ -45,7 +45,7 @@ class AppController
 
     protected function checkIsLoggedInAndBusiness() :void
     {
-        if(!(isset($_SESSION['user']) && $_SESSION['user']->getAccountType()->getName() == 'business' ))
+        if(!(isset($_SESSION['user']) && $_SESSION['user']->getAccountType() == 'business' ))
         {
             header("Location: http://$_SERVER[HTTP_HOST]");
         }

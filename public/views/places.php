@@ -46,10 +46,9 @@
                 </div>
                 <div>
                     <?php if(isset($_SESSION['user']) && $_SESSION['user']->getAccountType() == 'business'):?>
-                        <div class="add-place">
-                            <i class="fas fa-plus"></i>
-                            add place
-                        </div>
+                    <button class="add-place">
+                        <i class="fas fa-plus"></i>
+                        <a href="/addPlace">Add place</a></button>
                         <?php endif;?>
                 </div>
             </header>
