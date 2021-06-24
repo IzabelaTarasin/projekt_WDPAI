@@ -59,23 +59,28 @@ function createPlace(place) {
     const clone = template.content.cloneNode(true);
     const nameElement = clone.querySelector("#name");
     nameElement.innerHTML = place.name;
+    nameElement.setAttribute('href', place.id);
 
     const imgElement = clone.querySelector("#image");
     imgElement.src = `/public/img/1.png`; // TODO: use uploads
 
     const descriptionElement = clone.querySelector("#description");
     descriptionElement.innerHTML = place.description;
-    // div.id = project.id;
-    // const image = clone.querySelector("img");
-    // image.src = `/public/uploads/${project.image}`;
-    // const title = clone.querySelector("h2");
-    // title.innerHTML = project.title;
-    // const description = clone.querySelector("p");
-    // description.innerHTML = project.description;
-    // const like = clone.querySelector(".fa-heart");
-    // like.innerText = project.like;
-    // const dislike = clone.querySelector(".fa-minus-square");
-    // dislike.innerText = project.dislike;
+
+    const postalCodeElement = clone.querySelector("#postal-code");
+    postalCodeElement.innerHTML = "Postal code " +place.postal_code;
+
+    const cityElement = clone.querySelector("#city");
+    cityElement.innerHTML = "City " +place.city;
+
+    const numberElement = clone.querySelector("#number");
+    numberElement.innerHTML = "Number " +place.number;
+
+    const streetElement = clone.querySelector("#street");
+    streetElement.innerHTML = "Street " +place.street;
+
+    const allowsAnimalsElement = clone.querySelector("#allows-animals");
+    allowsAnimalsElement.innerHTML = place.animals_allowed === true ? "You can bring your animals" : "Animals are not allowed";
 
     placesContainer.appendChild(clone);
 }

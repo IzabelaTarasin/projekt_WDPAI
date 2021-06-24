@@ -60,6 +60,11 @@ class PlaceController extends AppController
             $description = $_POST['description'];
             $animalsAllowed = $_POST['animalsAllowed'] ?? false;
 
+            $postalCode = $_POST['postal-code'];
+            $city = $_POST['city'];
+            $number = $_POST['number'];
+            $street = $_POST['street'];
+
             if($name == null)
             {
                 return $this->render('addPlace', ['messages' => ['Name cannot be empty']]);
@@ -70,15 +75,44 @@ class PlaceController extends AppController
                 return $this->render('addPlace', ['messages' => ['Description cannot be empty']]);
             }
 
+            if($postalCode == null)
+            {
+                return $this->render('addPlace', ['messages' => ['Postal code cannot be empty']]);
+            }
+
+            if($city == null)
+            {
+                return $this->render('addPlace', ['messages' => ['City cannot be empty']]);
+            }
+
+            if($number == null)
+            {
+                return $this->render('addPlace', ['messages' => ['Number cannot be empty']]);
+            }
+
+            if($street == null)
+            {
+                return $this->render('addPlace', ['messages' => ['Street cannot be empty']]);
+            }
+
+            $imagePath = null;
+
             if (is_uploaded_file($_FILES['file']['tmp_name']) && $this->isValid($_FILES['file'])) {
                 $tempFile = $_FILES['file']['tmp_name'];
                 $uniqueFileName = $this->createUniqueFilePath();
-                $dir = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
+                $imagePath = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
 
-                move_uploaded_file($tempFile, $dir);
+                move_uploaded_file($tempFile, $imagePath);
             }
 
-            $place = new Place($name, $description, $animalsAllowed, null/*, $_FILES['file']['name'] */);
+            $place = new Place($name,
+                $description,
+                $animalsAllowed,
+                $imagePath,
+            $postalCode,
+            $city,
+            $number,
+            $street);
             $this->placeRepository->addPlace($place);
 
             header("Location: http://$_SERVER[HTTP_HOST]/places");

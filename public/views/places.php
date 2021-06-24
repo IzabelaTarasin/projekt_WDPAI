@@ -63,8 +63,15 @@
     <div>
         <img id="image" width="100" height="100">
         <div>
-            <h2 id="name"></h2>
+            <a id="name"></a>
             <p id="description"></p>
+            <p>Address</p>
+            <p id="postal-code"></p>
+            <p id="city"></p>
+            <p id="number"></p>
+            <p id="street"></p>
+            <p id="allows-animals"></p>
+
             <div class="rating-section">
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
