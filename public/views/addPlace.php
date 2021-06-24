@@ -30,6 +30,13 @@
                     </div>
                     <input name="name" type="text" placeholder="title">
                     <textarea name="description" rows="5" placeholder="description"></textarea>
+
+                    <p>Address</p>
+                    <input name="postal-code" type="text" placeholder="Postal code">
+                    <input name="city" type="text" placeholder="City">
+                    <input name="street" type="text" placeholder="Street">
+                    <input name="number" type="text" placeholder="Number">
+
                     <input id="animals-allowed-checkbox"type="checkbox" name="animalsAllowed" value="No" />
                     <label for="animals-allowed-checkbox">Are animals allowed?</label><br>
                     <input type="file" name="file">
