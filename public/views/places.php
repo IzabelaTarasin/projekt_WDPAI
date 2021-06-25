@@ -12,6 +12,7 @@
 
 <body>
     <div class="base-container">
+        <?php include('header.php') ?>
         <nav>
             <img src="public/img/CAMP APP.svg">
             <ul>
@@ -37,24 +38,9 @@
                 </li>
             </ul>
         </nav>
-        <main>
-
-            <header>
-                <div class="search-bar">
-                    <input id="search-bar" placeholder="search place">
-                </div>
-                <div>
-                    <?php if(isset($_SESSION['user']) && $_SESSION['user']->getAccountType() == 'business'):?>
-                    <button class="add-place">
-                        <i class="fas fa-plus"></i>
-                        <a href="/addPlace">Add place</a></button>
-                        <?php endif;?>
-                </div>
-            </header>
-            <section class="places">
-                <div id="places-container"class="places_container"/>
-            </section>
-        </main>
+        <section class="places">
+            <div id="places-container"class="places_container"/>
+        </section>
     </div>
 </body>
 

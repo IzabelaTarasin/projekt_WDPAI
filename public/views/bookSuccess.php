@@ -10,10 +10,9 @@
 </head>
 
 <body>
-<div class="base-container">
-    <main>
-        Success
-        <a href="/places">Go back</a>
-    </main>
-</div>
+    <?php include('header.php') ?>
+    <div class="base-container">
+            Success
+        <a href="/">Go back</a>
+    </div>
 </body>
