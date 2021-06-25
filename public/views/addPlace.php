@@ -12,16 +12,8 @@
 <body>
     <div class="container">
         <?php include('header.php') ?>
+        <?php include('messages.php') ?>
         <form class="form__container form" action="addPlace" method="POST" ENCTYPE="multipart/form-data">
-            <div class="messages">
-                <?php
-                if(isset($messages)){
-                    foreach($messages as $message) {
-                        echo $message;
-                    }
-                }
-                ?>
-            </div>
             <input name="name" type="text" placeholder="title">
             <textarea name="description" rows="5" placeholder="description"></textarea>
 
