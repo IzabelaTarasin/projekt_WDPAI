@@ -6,7 +6,8 @@ body {
     /*TODO: refactor*/
     width: 100vw;
     height: 100vh;
-    background: transparent url('../img/photo-1455763916899-e8b50eca9967.jpeg') 0% 0% repeat padding-box;
+    /* TODO: bring back*/
+    /*background: transparent url('../img/photo-1455763916899-e8b50eca9967.jpeg') 0% 0% repeat padding-box;*/
     opacity: 1;
 
     display: flex;
@@ -105,7 +106,8 @@ nav {
 
 main {
     width: 80vw;
-    background: transparent url('../img/photo-1455763916899-e8b50eca9967.jpeg') 0% 0% repeat padding-box;
+    /* TODO: bring back*/
+    /*background: transparent url('../img/photo-1455763916899-e8b50eca9967.jpeg') 0% 0% repeat padding-box;*/
     /*background: #F1F9FF 0% 0% no-repeat padding-box;*/
     border-radius: 5px 0px 0px 5px;
     opacity: 1;

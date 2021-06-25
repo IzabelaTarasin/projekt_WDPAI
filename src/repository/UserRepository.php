@@ -8,7 +8,13 @@ class UserRepository extends Repository
     public function getUser(string $email): ?User
     {
         $stmt = $this->database->connect()->prepare('
-        SELECT * FROM users u
+        SELECT u.id, 
+               u.email,
+               u.password,
+               u.name,
+               u.surname,
+               acct.type_name
+        FROM users u
         LEFT JOIN account_types acct on acct.id = u.account_type_id
         WHERE email = :email
         ');
@@ -23,6 +29,7 @@ class UserRepository extends Repository
         }
 
         return new User(
+            $result['id'],
             $result['email'],
             $result['password'],
             $result['name'],

@@ -1,29 +1,35 @@
 <?php
 
 class Place {
+    private ?int $id;
     private string $name;
     private string $description;
     private ?string $imagePath;
     private bool $animalsAllowed;
+    private ?int $ownerId;
 
     private string $postalCode;
     private string $city;
     private string $number;
     private string $street;
 
-    public function __construct($name,
+    public function __construct($id,
+                                $name,
                                 $description,
                                 $animalsAllowed,
+                                $ownerId,
                                 $imagePath,
                                 $postalCode,
                                 $city,
                                 $number,
                                 $street)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->imagePath = $imagePath;
         $this->animalsAllowed = $animalsAllowed;
+        $this->ownerId = $ownerId;
 
         $this->postalCode = $postalCode;
         $this->city = $city;
@@ -41,7 +47,7 @@ class Place {
         return $this->description;
     }
 
-    public function getImagePath(): string
+    public function getImagePath(): ?string
     {
         return $this->imagePath;
     }
@@ -69,5 +75,14 @@ class Place {
     public function getStreet(): string
     {
         return $this->street;
+    }
+
+    public function getId(): ?int{
+        return $this->id;
+    }
+
+    public function getOwnerId(): int
+    {
+        return $this->ownerId;
     }
 }

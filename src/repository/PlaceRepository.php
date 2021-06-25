@@ -8,7 +8,20 @@ class PlaceRepository extends Repository
     public function getPlace(int $id): ?Place
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM public.places WHERE id = :id
+            SELECT p.id, 
+                   p.name, 
+                   p.description, 
+                   p.image_path,
+                   p.owner_id,
+                   p.animals_allowed,
+                   
+                   addrr.postal_code,
+                   addrr.city,
+                   addrr.number,
+                   addrr.street
+            FROM places p
+            JOIN addresses addrr on addrr.id = p.address_id
+            WHERE p.id = :id
         ');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -20,10 +33,16 @@ class PlaceRepository extends Repository
         }
 
         return new Place(
+            $place['id'],
             $place['name'],
             $place['description'],
-            $place['address']
-        );
+            $place['animals_allowed'],
+            $place['owner_id'],
+            $place['image_path'],
+            $place['postal_code'],
+            $place['city'],
+            $place['number'],
+            $place['street']);
     }
 
     public function addPlace(Place $place): void
@@ -35,9 +54,6 @@ class PlaceRepository extends Repository
             VALUES (?, ?, ?, ?, ?, ?)
         ');
 
-        //TODO you should get this value from logged user session + transaction for address
-        $assignedById = 5;
-
         $pdo->beginTransaction();
 
         try
@@ -46,7 +62,7 @@ class PlaceRepository extends Repository
                 $place->getName(),
                 $place->getDescription(),
                 $place->getImagePath(),
-                $assignedById,
+                $place->getOwnerId(),
                 $place->isAnimalsAllowed() ? 1 : 0,
                 $this->createAddress($place->getPostalCode(),
                     $place->getCity(),
@@ -87,7 +103,18 @@ class PlaceRepository extends Repository
     {
         // TODO: left join adress
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM places p
+            SELECT p.id, 
+                   p.name, 
+                   p.description, 
+                   p.image_path,
+                   p.owner_id,
+                   p.animals_allowed,
+                   
+                   addrr.postal_code,
+                   addrr.city,
+                   addrr.number,
+                   addrr.street
+            FROM places p
             JOIN addresses addrr on addrr.id = p.address_id
         ');
         $stmt->execute();
