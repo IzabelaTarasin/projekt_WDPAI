@@ -12,36 +12,35 @@
 
 <body>
     <div class="base-container">
-        <main>
-            <?php
-            if(isset($messages))
+        <?php include('header.php') ?>
+        <?php
+        if(isset($messages))
+        {
+            foreach($messages as $message)
             {
-                foreach($messages as $message)
-                {
-                    echo $message;
-                }
+                echo $message;
             }
-            ?>
+        }
+        ?>
 
-            <img src="<?= isset($place) ? $place->getImagePath() : '';?>" width="500" height="500">
-            <form action="book" method="POST">
-                <input type="hidden" name="id" value="<?= isset($place) ? $place->getId() : '';?>">
+        <img src="<?= isset($place) ? $place->getImagePath() : '';?>" width="500" height="500">
+        <form action="book" method="POST">
+            <input type="hidden" name="id" value="<?= isset($place) ? $place->getId() : '';?>">
 
-                <?php if(isset($_SESSION['user'])):?>
-                    <input id="has-animals-switch" type="checkbox" name="hasAnimals">
-                    <label for="start">Start date:</label>
-                    <input type="date" id="start-date-input" name="startDate">
+            <?php if(isset($_SESSION['user'])):?>
+                <input id="has-animals-switch" type="checkbox" name="hasAnimals">
+                <label for="start">Start date:</label>
+                <input type="date" id="start-date-input" name="startDate">
 
-                    <label for="end">End date:</label>
-                    <input type="date" id="end-date-input" name="endDate">
-                    <input id="book-button" type="submit" value="Book">
-                <?php else:?>
-                    <p>Only logged in users can book. <a href="/login">Login</a></p>
-                <?php endif;?>
-            </form>
-            <p id="info"></p>
-            <p>Total price is:</p>
-            <p id="total-price"></p>
-        </main>
+                <label for="end">End date:</label>
+                <input type="date" id="end-date-input" name="endDate">
+                <input id="book-button" type="submit" value="Book">
+            <?php else:?>
+                <p>Only logged in users can book. <a href="/login">Login</a></p>
+            <?php endif;?>
+        </form>
+        <p id="info"></p>
+        <p>Total price is:</p>
+        <p id="total-price"></p>
     </div>
 </body>

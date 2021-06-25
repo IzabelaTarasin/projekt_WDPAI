@@ -11,38 +11,30 @@
 
 <body>
     <div class="container">
-        <main>
-            <header>
-                <div class="search-bar">
-                    <button onClick="document.location.href='/places';">Home</button>
-                </div>
-            </header>
-            <section class="place-form">
-                <form class="form__container form" action="addPlace" method="POST" ENCTYPE="multipart/form-data">
-                    <div class="messages">
-                        <?php
-                        if(isset($messages)){
-                            foreach($messages as $message) {
-                                echo $message;
-                            }
-                        }
-                        ?>
-                    </div>
-                    <input name="name" type="text" placeholder="title">
-                    <textarea name="description" rows="5" placeholder="description"></textarea>
+        <?php include('header.php') ?>
+        <form class="form__container form" action="addPlace" method="POST" ENCTYPE="multipart/form-data">
+            <div class="messages">
+                <?php
+                if(isset($messages)){
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                }
+                ?>
+            </div>
+            <input name="name" type="text" placeholder="title">
+            <textarea name="description" rows="5" placeholder="description"></textarea>
 
-                    <p>Address</p>
-                    <input name="postal-code" type="text" placeholder="Postal code">
-                    <input name="city" type="text" placeholder="City">
-                    <input name="street" type="text" placeholder="Street">
-                    <input name="number" type="text" placeholder="Number">
+            <p>Address</p>
+            <input name="postal-code" type="text" placeholder="Postal code">
+            <input name="city" type="text" placeholder="City">
+            <input name="street" type="text" placeholder="Street">
+            <input name="number" type="text" placeholder="Number">
 
-                    <input id="animals-allowed-checkbox"type="checkbox" name="animalsAllowed" value="No" />
-                    <label for="animals-allowed-checkbox">Are animals allowed?</label><br>
-                    <input type="file" name="file">
-                    <input type="submit" value="Add"/>
-                </form>
-            </section>
-        </main>
+            <input id="animals-allowed-checkbox"type="checkbox" name="animalsAllowed" value="No" />
+            <label for="animals-allowed-checkbox">Are animals allowed?</label><br>
+            <input type="file" name="file">
+            <input type="submit" value="Add"/>
+        </form>
     </div>
 </body>

@@ -12,7 +12,7 @@ Router::post('addPlace','PlaceController');
 Router::post('book','PlaceController');
 Router::post('register', 'SecurityController');
 
-
+Router::get('logout', 'SecurityController');
 Router::get('getAllPlaces', 'PlaceController');
 Router::get('place', 'PlaceController');
 Router::get('', 'DefaultController');
