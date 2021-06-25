@@ -147,13 +147,12 @@ class PlaceController extends AppController
                 $imagePath = null;
 
                 if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-                    validateImageFile($_FILES['file']);
+                    $this->validateImageFile($_FILES['file']);
 
                     $tempFile = $_FILES['file']['tmp_name'];
                     $uniqueFileName = $this->createUniqueFilePath();
-                    $imagePath = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
-
-                    move_uploaded_file($tempFile, $imagePath);
+                    $imagePath = self::UPLOAD_DIRECTORY.$uniqueFileName;
+                    move_uploaded_file($tempFile, dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName);
                 }
 
                 $user = $this->userRepository->getUser($_SESSION['user']->getEmail());

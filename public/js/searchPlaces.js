@@ -62,7 +62,7 @@ function createPlace(place) {
     nameElement.setAttribute('href', "place?id=" +place.id);
 
     const imgElement = clone.querySelector("#image");
-    imgElement.src = `/public/img/1.png`; // TODO: use uploads
+    imgElement.src = place.image_path;
 
     const descriptionElement = clone.querySelector("#description");
     descriptionElement.innerHTML = place.description;
