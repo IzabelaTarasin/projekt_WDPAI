@@ -144,15 +144,15 @@ class PlaceController extends AppController
                 if($street == null)
                     throw new Exception('Street cannot be empty');
 
-                $imagePath = null;
+                $relativeImagePath = null;
 
                 if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-                    validateImageFile($_FILES['file']);
+                    $this->validateImageFile($_FILES['file']);
 
                     $tempFile = $_FILES['file']['tmp_name'];
                     $uniqueFileName = $this->createUniqueFilePath();
                     $imagePath = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
-
+                    $relativeImagePath = self::UPLOAD_DIRECTORY.$uniqueFileName;
                     move_uploaded_file($tempFile, $imagePath);
                 }
 
@@ -167,7 +167,7 @@ class PlaceController extends AppController
                     $description,
                     $animalsAllowed,
                     $user->getId(),
-                    $imagePath,
+                    $relativeImagePath,
                     $postalCode,
                     $city,
                     $number,
