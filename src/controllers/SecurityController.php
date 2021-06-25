@@ -17,64 +17,87 @@ class SecurityController extends AppController
 
     public function login()
     {
-        if (!$this->isPost()) {
-            return $this->render('login');
+        if ($this->isPost()) {
+            try {
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+
+                if($email == null)
+                    throw new Exception('Email is required');
+
+                if($password == null)
+                    throw new Exception('Password is required');
+
+                $user = $this->userRepository->getUser($email);
+                if($user == null)
+                    throw new Exception('Invalid username or password');
+
+                if($user->getEmail() !== $email)
+                    throw new Exception('User does not exists');
+
+                if(!password_verify($password, $user->getPassword())){
+                    throw new Exception('Invalid username or password');
+                }
+
+                $_SESSION['user'] = $user;
+                $url = "http://$_SERVER[HTTP_HOST]";
+                header("Location: {$url}");
+            } catch (Exception $e) {
+                $this->render('login', ['messages' => [$e->getMessage()]]);
+            }
+        } else {
+            $this->render('login');
         }
-
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-
-        $user = $this->userRepository->getUser($email);
-
-        if(!$user){
-            return $this->render('login', ['messages' => ['User not exist']]);
-        }
-
-        if($user->getEmail() !== $email){
-            return $this->render('login', ['messages' => ['User does not exists']]);
-        }
-
-        if(!password_verify($password, $user->getPassword())){
-            return $this->render('login', ['messages' => ['Wrong password']]);
-        }
-
-        $_SESSION['user'] = $user;
-
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/places");
     }
 
     public function register()
     {
-        if (!$this->isPost()) {
-            return $this->render('register');
+         if ($this->isPost()) {
+            try {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $confirmedPassword = $_POST['confirmedPassword'];
+                $name = $_POST['name'];
+                $surname = $_POST['surname'];
+                $accountType = $_POST['accountType'];
+
+                if($email == null)
+                    throw new Exception('Email is required');
+
+                if($password == null)
+                    throw new Exception('Password is required');
+
+                if($name == null)
+                    throw new Exception('Name is required');
+
+                if($surname == null)
+                    throw new Exception('Surname is required');
+
+                if($accountType == null)
+                    throw new Exception('AccountType is required');
+
+                if ($password !== $confirmedPassword) {
+                    throw new Exception('Passwords do not match');
+                }
+
+                $existingUser = $this->userRepository->getUser($email);
+
+                if($existingUser != null)
+                    throw new Exception('You already have an account');
+
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $user = new User($email, $hash, $name, $surname, $accountType);
+                $this->userRepository->addUser($user);
+
+                $_SESSION['user'] = $user;
+                $url = "http://$_SERVER[HTTP_HOST]";
+                header("Location: {$url}");
+            } catch (Exception $e) {
+                $this->render('register', ['messages' => [$e->getMessage()]]);
+            }
+        } else {
+            $this->render('register');
         }
-
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirmedPassword = $_POST['confirmedPassword'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $accountType = $_POST['accountType'];
-
-        //TODO: empty field validation
-
-        if ($password !== $confirmedPassword) {
-            return $this->render('register', ['messages' => ['Passwords do not match']]);
-        }
-
-        $existingUser = $this->userRepository->getUser($email);
-
-        if($existingUser != null)
-        {
-            return $this->render('register', ['messages' => ['You already have an account']]);
-        }
-
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $user = new User($email, $hash, $name, $surname, $accountType);
-        $this->userRepository->addUser($user);
-
-        return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
     }
 
     public function logout()

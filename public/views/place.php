@@ -13,15 +13,7 @@
 <body>
     <div class="base-container">
         <?php include('header.php') ?>
-        <?php
-        if(isset($messages))
-        {
-            foreach($messages as $message)
-            {
-                echo $message;
-            }
-        }
-        ?>
+        <?php include('messages.php') ?>
 
         <img src="<?= isset($place) ? $place->getImagePath() : '';?>" width="500" height="500">
         <form action="book" method="POST">

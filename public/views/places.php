@@ -56,14 +56,6 @@
             <p id="number"></p>
             <p id="street"></p>
             <p id="allows-animals"></p>
-
-            <div class="rating-section">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-            </div>
         </div>
     </div>
 </template>

@@ -24,9 +24,8 @@ class UserRepository extends Repository
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($result == false) {
-            return null;
-        }
+        if($result == false)
+            throw new Exception('Could not fetch users');
 
         return new User(
             $result['id'],
@@ -45,13 +44,16 @@ class UserRepository extends Repository
             VALUES (?, ?, ?, ?, ?)
         ');
 
-        $stmt->execute([
+        $result = $stmt->execute([
             $user->getName(),
             $user->getSurname(),
             $user->getEmail(),
             $user->getPassword(),
             $this->getAccountTypeId($user->getAccountType())
         ]);
+
+        if ($result == false)
+            throw new Exception('Could create user');
     }
 
     private function getAccountTypeId(string $type_name) : ?int
@@ -64,9 +66,8 @@ class UserRepository extends Repository
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result == false) {
-            return null;
-        }
+        if ($result == false)
+            throw new Exception('Could get account type');
 
         return $result['id'];
     }
