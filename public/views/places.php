@@ -50,11 +50,7 @@
         <div>
             <a id="name"></a>
             <p id="description"></p>
-            <p>Address</p>
-            <p id="postal-code"></p>
-            <p id="city"></p>
-            <p id="number"></p>
-            <p id="street"></p>
+            <?php include('address.php')?>
             <p id="allows-animals"></p>
         </div>
     </div>

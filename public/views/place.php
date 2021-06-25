@@ -31,6 +31,7 @@
                 <p>Only logged in users can book. <a href="/login">Login</a></p>
             <?php endif;?>
         </form>
+        <?php include('address.php') ?>
         <p id="info"></p>
         <p>Total price is:</p>
         <p id="total-price"></p>
