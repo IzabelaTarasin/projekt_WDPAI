@@ -2,8 +2,11 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../models/Place.php';
-require_once __DIR__.'/../repository/PlaceRepository.php';
+require_once __DIR__.'/../models/Booking.php';
 
+require_once __DIR__.'/../repository/PlaceRepository.php';
+require_once __DIR__.'/../repository/BookingRepository.php';
+require_once __DIR__.'/../repository/UserRepository.php';
 
 class PlaceController extends AppController
 {
@@ -11,18 +14,75 @@ class PlaceController extends AppController
     const SUPPORTED_TYPES = ['image/png', 'image/jpeg'];
     const UPLOAD_DIRECTORY = '/../public/uploads/';
 
-    private $messages = [];
     private PlaceRepository $placeRepository;
+    private BookingRepository $bookingRepository;
+    private UserRepository $userRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->placeRepository = new PlaceRepository();
+        $this->bookingRepository = new BookingRepository();
+        $this->userRepository = new UserRepository();
     }
 
     public function places()
     {
         $this->render('places');
+    }
+
+    public function place()
+    {
+        if($this->isGet())
+        {
+            $id = $_GET["id"];
+            $place = $this->placeRepository->getPlace($id);
+
+            $this->render("place", ['place' => $place]);
+        }
+    }
+
+    public function book()
+    {
+        $this->checkIsLoggedIn();
+
+        if ($this->isPost())
+        {
+            $id = $_POST['id'];
+            $hasAnimals = $_POST['$hasAnimals'] ?? false;
+
+            try {
+                $startDate = new DateTime($_POST['startDate']);
+                $endDate = new DateTime($_POST['endDate']);
+                $place = $this->placeRepository->getPlace($id);
+                $user = $this->userRepository->getUser($_SESSION['user']->getEmail());
+
+                if ($startDate >= $endDate)
+                    throw new Exception('End date must be greater than start date');
+
+                if (new DateTime('today') > $startDate)
+                    throw new Exception('Past cannot be selected');
+
+                if ($place == null)
+                    throw new Exception('No such place!');
+
+                if ($user == null)
+                    throw new Exception('No such user!');
+
+                if ($place->getOwnerId() == $user->getId())
+                    throw new Exception('Cannot book your own field!');
+
+                if (!$this->bookingRepository->checkIsAvailable($startDate, $endDate, $place->getId()))
+                    throw new Exception('Field taken. Choose another date');
+
+                $booking = new Booking($user->getId(), $place->getId(), $startDate, $endDate, $hasAnimals);
+                $this->bookingRepository->addBooking($booking);
+
+                $this->render("bookSuccess");
+            } catch (Exception $e) {
+                $this->render("place", ['id' => $id, 'messages' => [$e->getMessage()]]);
+            }
+        }
     }
 
     public function getAllPlaces() {
@@ -55,69 +115,73 @@ class PlaceController extends AppController
     {
         $this->checkIsLoggedInAndBusiness();
 
-        if($this->isPost()) {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $animalsAllowed = $_POST['animalsAllowed'] ?? false;
+        try {
+            if($this->isPost()) {
+                $name = $_POST['name'];
+                $description = $_POST['description'];
+                $animalsAllowed = $_POST['animalsAllowed'] ?? false;
 
-            $postalCode = $_POST['postal-code'];
-            $city = $_POST['city'];
-            $number = $_POST['number'];
-            $street = $_POST['street'];
+                $postalCode = $_POST['postal-code'];
+                $city = $_POST['city'];
+                $number = $_POST['number'];
+                $street = $_POST['street'];
 
-            if($name == null)
-            {
-                return $this->render('addPlace', ['messages' => ['Name cannot be empty']]);
+                if($name == null)
+                    throw new Exception('Name cannot be empty');
+
+                if($description == null)
+                    throw new Exception('Description cannot be empty');
+
+                if($postalCode == null)
+                    throw new Exception('Postal code cannot be empty');
+
+                if($city == null)
+                    throw new Exception('City cannot be empty');
+
+                if($number == null)
+                    throw new Exception('Number cannot be empty');
+
+                if($street == null)
+                    throw new Exception('Street cannot be empty');
+
+                $imagePath = null;
+
+                if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+                    validateImageFile($_FILES['file']);
+
+                    $tempFile = $_FILES['file']['tmp_name'];
+                    $uniqueFileName = $this->createUniqueFilePath();
+                    $imagePath = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
+
+                    move_uploaded_file($tempFile, $imagePath);
+                }
+
+                $user = $this->userRepository->getUser($_SESSION['user']->getEmail());
+
+                if ($user == null)
+                    throw new Exception('No such user!');
+
+                $place = new Place(
+                    null,
+                    $name,
+                    $description,
+                    $animalsAllowed,
+                    $user->getId(),
+                    $imagePath,
+                    $postalCode,
+                    $city,
+                    $number,
+                    $street);
+
+                $this->placeRepository->addPlace($place);
+
+                header("Location: http://$_SERVER[HTTP_HOST]/places");
+            } else {
+                $this->render('addPlace');
             }
-
-            if($description == null)
-            {
-                return $this->render('addPlace', ['messages' => ['Description cannot be empty']]);
-            }
-
-            if($postalCode == null)
-            {
-                return $this->render('addPlace', ['messages' => ['Postal code cannot be empty']]);
-            }
-
-            if($city == null)
-            {
-                return $this->render('addPlace', ['messages' => ['City cannot be empty']]);
-            }
-
-            if($number == null)
-            {
-                return $this->render('addPlace', ['messages' => ['Number cannot be empty']]);
-            }
-
-            if($street == null)
-            {
-                return $this->render('addPlace', ['messages' => ['Street cannot be empty']]);
-            }
-
-            $imagePath = null;
-
-            if (is_uploaded_file($_FILES['file']['tmp_name']) && $this->isValid($_FILES['file'])) {
-                $tempFile = $_FILES['file']['tmp_name'];
-                $uniqueFileName = $this->createUniqueFilePath();
-                $imagePath = dirname(__DIR__).self::UPLOAD_DIRECTORY.$uniqueFileName;
-
-                move_uploaded_file($tempFile, $imagePath);
-            }
-
-            $place = new Place($name,
-                $description,
-                $animalsAllowed,
-                $imagePath,
-            $postalCode,
-            $city,
-            $number,
-            $street);
-            $this->placeRepository->addPlace($place);
-
-            header("Location: http://$_SERVER[HTTP_HOST]/places");
+        } catch (Exception $e) {
+            $this->render('addPlace', ['messages' => [$e->getMessage()]]);
         }
-        $this->render('addPlace');
     }
 
     private function createUniqueFilePath() :string {
@@ -126,18 +190,14 @@ class PlaceController extends AppController
         return uniqid().".".$fileExtension;
     }
 
-    private function isValid(array $file)
+    private function validateImageFile(array $file)
     {
         if($file['size'] > self::MAX_FILE_SIZE) {
-            $this->messages[] = 'File is too large for destination file system.';
-            return false;
+            throw new Exception('File too big');
         }
 
         if(!isset($file['type']) && !in_array($file['type'], self::SUPPORTED_TYPES)) {
-            $this->messages[] = 'File is not supported.';
-            return false;
+            throw new Exception('Wrong type');
         }
-
-        return true;
     }
 }

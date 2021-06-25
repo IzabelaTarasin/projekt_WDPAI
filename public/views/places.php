@@ -4,7 +4,6 @@
     <link rel="stylesheet" type="text/css" href="public/css/places.css">
     <link rel="stylesheet" type="text/css" href="public/css/sliders.css">
     <link rel="stylesheet" type="text/css" href="public/css/calendars.css">
-    <link rel="stylesheet" type="text/css" href="public/css/searchTeriitorium.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/23b90dae98.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./public/js/searchPlaces.js" defer></script>

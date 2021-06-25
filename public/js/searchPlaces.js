@@ -59,7 +59,7 @@ function createPlace(place) {
     const clone = template.content.cloneNode(true);
     const nameElement = clone.querySelector("#name");
     nameElement.innerHTML = place.name;
-    nameElement.setAttribute('href', place.id);
+    nameElement.setAttribute('href', "place?id=" +place.id);
 
     const imgElement = clone.querySelector("#image");
     imgElement.src = `/public/img/1.png`; // TODO: use uploads

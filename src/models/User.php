@@ -3,6 +3,7 @@
 require_once 'AccountType.php';
 
 class User {
+    private ?int $id;
     private $email;
     private $password;
     private $name;
@@ -10,12 +11,14 @@ class User {
     private $accountType;
 
     public function __construct(
+        ?string $id,
         string $email,
         string $password,
         string $name,
         string $surname,
         $accountType
     ) {
+        $this->id = $id;
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
@@ -46,5 +49,10 @@ class User {
     public function getAccountType(): string
     {
         return $this->accountType;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 }
