@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/sliders.css">
     <link rel="stylesheet" type="text/css" href="public/css/header.css">
     <link rel="stylesheet" type="text/css" href="public/css/places.css">
+    <link rel="stylesheet" type="text/css" href="public/css/address.css">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +40,7 @@
                         </label>
                     </li>
                     <li>
-                        <button id="search-button" class="button">search</button>
+                        <button id="search-button" class="primary__button">search</button>
                     </li>
                 </ul>
             </div>
@@ -49,13 +52,12 @@
 <template id="place-template">
     <div class="place__item">
         <div>
-            <img id="image" width="100" height="100">
+            <img id="image" width="150" height="150">
         </div>
-        <div class="place__item__description">
-            <a id="name"></a>
+        <div class="place__item__description__container">
+            <b><a id="name"></a></b>
             <p id="description"></p>
             <?php include('address.php')?>
-            <p id="allows-animals"></p>
         </div>
     </div>
 </template>

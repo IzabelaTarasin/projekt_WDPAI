@@ -26,7 +26,9 @@ function handle(response){
 }
 
 searchBar.addEventListener("keyup", function (event) {
-    searchPlaces();
+    if (event.key == 'Enter') {
+        searchPlaces();
+    }
 });
 
 function searchPlaces() {
@@ -78,9 +80,6 @@ function createPlace(place) {
 
     const streetElement = clone.querySelector("#street");
     streetElement.innerHTML = "Street " +place.street;
-
-    const allowsAnimalsElement = clone.querySelector("#allows-animals");
-    allowsAnimalsElement.innerHTML = place.animals_allowed === true ? "You can bring your animals" : "Animals are not allowed";
 
     placesContainer.appendChild(clone);
 }

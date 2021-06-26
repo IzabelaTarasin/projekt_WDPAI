@@ -1,9 +1,8 @@
-<p>Address</p>
-<p>Postal Code</p>
-<p id="postal-code"><?= isset($place) ? $place->getPostalCode() : '';?></p>
-<p>City</p>
-<p id="city"><?= isset($place) ? $place->getCity() : '';?></p>
-<p>Number</p>
-<p id="number"><?= isset($place) ? $place->getNumber() : '';?></p>
-<p>Street</p>
-<p id="street"><?= isset($place) ? $place->getStreet() : '';?></p>
+<div class="place__item__description_address_container">
+    <ul>
+        <li id="postal-code"><?= isset($place) ? $place->getPostalCode() : '';?></li>
+        <li id="city"><?= isset($place) ? $place->getCity() : '';?></li>
+        <li id="number"><?= isset($place) ? $place->getNumber() : '';?></li>
+        <li id="street"><?= isset($place) ? $place->getStreet() : '';?></li>
+    </ul>
+</div>

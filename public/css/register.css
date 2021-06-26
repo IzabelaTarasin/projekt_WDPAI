@@ -4,28 +4,6 @@
     align-items: start;
 }
 
-.register__form {
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    align-items: center;
-    width: 30vh;
-
-    /* UI Properties */
-    background: #FFF9F5 0% 0% no-repeat padding-box;
-    box-shadow: 0px 6px 6px #00000029;
-    border: 1px solid #707070;
-    border-radius: 10px;
-    opacity: 1;
-}
-
-.register__form > p {
-    font-size: 10px;
-    color: gray;
-}
-
 .logo__container {
     margin-top: -30px;
     margin-right: 50px;

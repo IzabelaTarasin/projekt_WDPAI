@@ -14,7 +14,7 @@
             <div class="logo__container">
                 <img width="300" height="100" src="public/img/CAMP APP.svg">
             </div>
-                <form class="login__form" action="login" method="POST">
+                <form action="login" method="POST">
                     <?php include('messages.php') ?>
                     <input name="email" type="text" placeholder="email@email.com">
                     <input name="password" type="password" placeholder="password">

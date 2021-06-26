@@ -75,6 +75,9 @@ class PlaceController extends AppController
                 if (!$this->bookingRepository->checkIsAvailable($startDate, $endDate, $place->getId()))
                     throw new Exception('Field taken. Choose another date');
 
+                if (!$place->isAnimalsAllowed())
+                    $hasAnimals = false;
+
                 $booking = new Booking($user->getId(), $place->getId(), $startDate, $endDate, $hasAnimals);
                 $this->bookingRepository->addBooking($booking);
 

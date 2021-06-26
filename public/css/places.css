@@ -4,7 +4,7 @@
     padding: 2vh;
     overflow: auto;
     height: auto;
-    width: 100%;
+    width: 500px;
 }
 
 .place__item {
@@ -15,10 +15,39 @@
     align-items: center;
 }
 
-.place__item__description {
+.place__item__description__container {
     background-color: yellow;
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.place__item__description__container > p {
+    margin: 5px;
+    padding: 0;
+}
+
+.search__menu {
+    background-color: cadetblue;
+}
+
+.search__menu > ul > li {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    background-color: red;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.search__menu > ul > li > input {
+    width: 100%;
+    padding: 10px;
+}
+
+.search__menu > ul > li > i {
+    padding: 10px;
+    text-align: center;
 }
 
 /*section {*/
