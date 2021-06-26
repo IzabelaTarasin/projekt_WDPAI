@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/header.css">
     <link rel="stylesheet" type="text/css" href="public/css/places.css">
     <link rel="stylesheet" type="text/css" href="public/css/address.css">
+    <link rel="stylesheet" type="text/css" href="public/css/calendars.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
@@ -56,7 +57,7 @@
         </div>
         <div class="place__item__description__container">
             <b><a id="name"></a></b>
-            <p id="description"></p>
+            <span id="description"></span>
             <?php include('address.php')?>
         </div>
     </div>

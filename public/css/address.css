@@ -1,7 +1,3 @@
-.place__item__description_address_container {
-    background-color: orange;
-}
-
 .place__item__description_address_container > ul {
     padding: 0;
     margin: 0;

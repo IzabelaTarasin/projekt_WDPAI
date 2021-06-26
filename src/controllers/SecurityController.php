@@ -86,7 +86,7 @@ class SecurityController extends AppController
                     throw new Exception('You already have an account');
 
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-                $user = new User($email, $hash, $name, $surname, $accountType);
+                $user = new User(null, $email, $hash, $name, $surname, $accountType);
                 $this->userRepository->addUser($user);
 
                 $_SESSION['user'] = $user;

@@ -48,7 +48,7 @@ class PlaceController extends AppController
 
         if ($this->isPost())
         {
-            $id = $_POST['id'];
+            $id = intval($_POST['id']);
             $hasAnimals = $_POST['$hasAnimals'] ?? false;
 
             try {

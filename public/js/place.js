@@ -40,17 +40,24 @@ function calculatePrice() {
         return;
     }
 
+    var price = 0;
     const days = Math.floor((endDate - startDate) / 86400000);
-    const price = days * dailyPrice + (hasAnimalsSwitch.checked ? priceForAnimal : 0);
+    price += days * dailyPrice;
+
+    if (hasAnimalsSwitch != null && hasAnimalsSwitch.checked) {
+        price += priceForAnimal;
+    }
 
     infoElement.innerHTML = "";
     bookButtonElement.disabled = false;
     totalPriceElement.innerHTML = price + "$";
 }
 
-hasAnimalsSwitch.addEventListener('change', e=> {
-    calculatePrice();
-});
+if (hasAnimalsSwitch != null) {
+    hasAnimalsSwitch.addEventListener('change', e => {
+        calculatePrice();
+    });
+}
 
 startDateInputElement.addEventListener('change', e=> {
     calculatePrice();
