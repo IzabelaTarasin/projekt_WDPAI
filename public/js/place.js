@@ -59,10 +59,14 @@ if (hasAnimalsSwitch != null) {
     });
 }
 
-startDateInputElement.addEventListener('change', e=> {
-    calculatePrice();
-});
+if(startDateInputElement) {
+    startDateInputElement.addEventListener('change', e => {
+        calculatePrice();
+    });
+}
 
-endDateInputElement.addEventListener('change', e=> {
-    calculatePrice();
-});
+if(endDateInputElement) {
+    endDateInputElement.addEventListener('change', e => {
+        calculatePrice();
+    });
+}

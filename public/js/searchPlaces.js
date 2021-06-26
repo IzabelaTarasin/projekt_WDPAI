@@ -20,7 +20,6 @@ function loadInitialPlaces() {
 }
 
 function handle(response){
-    console.log(response);
     placesContainer.innerHTML = "";
     loadPlaces(response);
 }
@@ -35,7 +34,7 @@ function searchPlaces() {
     const animalsSwitch = document.querySelector("#animals-allowed-switch");
 
     const data = {
-        search: this.value,
+        search: searchBar.value,
         animalsAllowed: animalsSwitch.checked
     }
 
