@@ -1,10 +1,10 @@
-.login__container {
+.register__container {
     display: flex;
     justify-content: center;
     align-items: start;
 }
 
-.login__form {
+.register__form {
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -21,13 +21,16 @@
     opacity: 1;
 }
 
-.login__form > p {
+.register__form > p {
     font-size: 10px;
     color: gray;
-    text-align: center;
 }
 
 .logo__container {
     margin-top: -30px;
     margin-right: 50px;
+}
+
+.checkbox {
+    width: auto;
 }

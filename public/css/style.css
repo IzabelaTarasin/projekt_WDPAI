@@ -37,6 +37,7 @@ input, textarea {
     border-bottom: 1px solid gray;
     padding: 1em;
     margin: 1em;
+    width: 80%;
 }
 
 .primary__button {
