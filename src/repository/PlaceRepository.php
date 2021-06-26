@@ -101,7 +101,6 @@ class PlaceRepository extends Repository
 
     public function getPlaces(): array
     {
-        // TODO: left join adress
         $stmt = $this->database->connect()->prepare('
             SELECT p.id, 
                    p.name, 
@@ -121,7 +120,6 @@ class PlaceRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // TODO: add animal, start date end date
     public function searchPlaces(string $name, bool $animalsAllowed) : array {
         $name = '%' . strtolower($name) . '%';
 

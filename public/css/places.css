@@ -1,53 +1,76 @@
-section {
+.places__container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2em;
-    padding: 2em;
+    grid-gap: 2vh;
+    padding: 2vh;
     overflow: auto;
-}
-
-section > div > img {
-    height: 50%;
+    height: auto;
     width: 100%;
-    object-fit: cover;
-    border-radius: 1em 1em 0 0;
 }
 
-section > div > div {
-    height: 50%;
-    color: #2C2B2B;
-    margin: 1em;
+.place__item {
+    background-color: chartreuse;
+    padding: 1vh;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-section > div {
-    border: 1px solid gray;
-    border-radius: 1em 1em 0 0;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
-.rating-section {
-    display: flex;
-    width:40%;
-    justify-content: space-between;
-}
-
-.checked {
-    color: orange;
-}
-
-section.place-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.place-form > form {
+.place__item__description {
+    background-color: yellow;
     display: flex;
     flex-direction: column;
 }
+
+/*section {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(3, 1fr);*/
+/*    grid-gap: 2em;*/
+/*    padding: 2em;*/
+/*    overflow: auto;*/
+/*}*/
+
+/*section > div > img {*/
+/*    height: 50%;*/
+/*    width: 100%;*/
+/*    object-fit: cover;*/
+/*    border-radius: 1em 1em 0 0;*/
+/*}*/
+
+/*section > div > div {*/
+/*    height: 50%;*/
+/*    color: #2C2B2B;*/
+/*    margin: 1em;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-around;*/
+/*}*/
+
+/*section > div {*/
+/*    border: 1px solid gray;*/
+/*    border-radius: 1em 1em 0 0;*/
+/*    height: 400px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.rating-section {*/
+/*    display: flex;*/
+/*    width:40%;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.checked {*/
+/*    color: orange;*/
+/*}*/
+
+/*section.place-form{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.place-form > form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
