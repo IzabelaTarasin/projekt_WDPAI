@@ -1,0 +1,30 @@
+.nav-wrapper {
+    display: flex;
+}
+
+.nav-wrapper > li {
+    list-style: none;
+}
+
+.nav-item > a {
+    display: block;
+    padding: 1.5rem 1rem;
+    color: white;
+}
+
+.no-underline > a:link {
+    text-decoration: none;
+}
+
+.no-underline > a:hover {
+    text-decoration: none;
+}
+
+.site-header {
+    margin: 0;
+    padding: 0;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,14 @@
+.register__container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.logo__container {
+    margin-top: -30px;
+    margin-right: 50px;
+}
+
+.checkbox {
+    width: auto;
+}

@@ -25,7 +25,7 @@ class UserRepository extends Repository
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($result == false)
-            throw new Exception('Could not fetch users');
+            return null;
 
         return new User(
             $result['id'],

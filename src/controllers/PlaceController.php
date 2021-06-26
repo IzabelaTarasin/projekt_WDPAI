@@ -48,7 +48,7 @@ class PlaceController extends AppController
 
         if ($this->isPost())
         {
-            $id = $_POST['id'];
+            $id = intval($_POST['id']);
             $hasAnimals = $_POST['$hasAnimals'] ?? false;
 
             try {
@@ -74,6 +74,9 @@ class PlaceController extends AppController
 
                 if (!$this->bookingRepository->checkIsAvailable($startDate, $endDate, $place->getId()))
                     throw new Exception('Field taken. Choose another date');
+
+                if (!$place->isAnimalsAllowed())
+                    $hasAnimals = false;
 
                 $booking = new Booking($user->getId(), $place->getId(), $startDate, $endDate, $hasAnimals);
                 $this->bookingRepository->addBooking($booking);

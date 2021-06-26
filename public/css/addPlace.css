@@ -1,0 +1,12 @@
+.checkbox {
+    width: auto;
+}
+
+.animals {
+    display: flex;
+    align-items: center;
+}
+
+.animals > div > span {
+    margin-left: 20px;
+}

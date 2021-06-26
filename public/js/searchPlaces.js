@@ -20,20 +20,21 @@ function loadInitialPlaces() {
 }
 
 function handle(response){
-    console.log(response);
     placesContainer.innerHTML = "";
     loadPlaces(response);
 }
 
 searchBar.addEventListener("keyup", function (event) {
-    searchPlaces();
+    if (event.key == 'Enter') {
+        searchPlaces();
+    }
 });
 
 function searchPlaces() {
     const animalsSwitch = document.querySelector("#animals-allowed-switch");
 
     const data = {
-        search: this.value,
+        search: searchBar.value,
         animalsAllowed: animalsSwitch.checked
     }
 
@@ -62,7 +63,9 @@ function createPlace(place) {
     nameElement.setAttribute('href', "place?id=" +place.id);
 
     const imgElement = clone.querySelector("#image");
-    imgElement.src = place.image_path;
+    if (place.image_path) {
+        imgElement.src = place.image_path;
+    }
 
     const descriptionElement = clone.querySelector("#description");
     descriptionElement.innerHTML = place.description;
@@ -78,9 +81,6 @@ function createPlace(place) {
 
     const streetElement = clone.querySelector("#street");
     streetElement.innerHTML = "Street " +place.street;
-
-    const allowsAnimalsElement = clone.querySelector("#allows-animals");
-    allowsAnimalsElement.innerHTML = place.animals_allowed === true ? "You can bring your animals" : "Animals are not allowed";
 
     placesContainer.appendChild(clone);
 }
